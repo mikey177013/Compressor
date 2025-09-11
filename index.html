@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Image Compressor</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Animated Background Canvas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <i class="fas fa-compress-alt"></i>
+        <h1>Nexus Compressor</h1>
+      </div>
+      <div class="header-info">
+        <p>Compress images without losing quality - lightning fast! ⚡</p>
+      </div>
+    </header>
+
+    <!-- Upload Section -->
+    <section class="upload-section">
+      <div class="upload-box" id="uploadBox">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <div class="upload-icon">
+          <i class="fas fa-cloud-upload-alt"></i>
+        </div>
+        <h2>Drop your image here</h2>
+        <p>or <span class="browse-link">browse files</span></p>
+        <div class="supported-formats">
+          <span>Supports: JPG, PNG, WEBP, GIF</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workspace -->
+    <section class="workspace hidden" id="workspace">
+      <div class="preview-container">
+        <div class="image-card">
+          <div class="card-header">
+            <h3><i class="fas fa-image"></i> Original</h3>
+            <div class="file-info">
+              <span id="originalDimensions">0 x 0</span>
+            </div>
+          </div>
+          <div class="image-preview">
+            <img id="originalImage" alt="Original image">
+          </div>
+          <div class="size-info">
+            <i class="fas fa-weight-hanging"></i>
+            <span id="originalSize">0 KB</span>
+          </div>
+        </div>
+
+        <div class="comparison-arrow">
+          <i class="fas fa-arrow-right"></i>
+        </div>
+
+        <div class="image-card">
+          <div class="card-header">
+            <h3><i class="fas fa-compress-alt"></i> Compressed</h3>
+            <div class="quality-badge" id="qualityBadge">
+              70%
+            </div>
+          </div>
+          <div class="image-preview">
+            <img id="compressedImage" alt="Compressed image">
+          </div>
+          <div class="size-info">
+            <i class="fas fa-weight-hanging"></i>
+            <span id="compressedSize">0 KB</span>
+            <span class="savings" id="savings">0% saved</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-container">
+        <div class="control-group">
+          <label for="quality">
+            <i class="fas fa-sliders-h"></i>
+            Quality: <span id="qualityValue">0.7</span>
+          </label>
+          <input type="range" id="quality" min="0.1" max="1" step="0.05" value="0.7">
+          <div class="quality-labels">
+            <span>Smaller Size</span>
+            <span>Better Quality</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="maxWidth">
+            <i class="fas fa-expand-alt"></i>
+            Max Width: <span id="widthValue">Original</span>
+          </label>
+          <input type="range" id="maxWidth" min="100" max="2000" step="100" value="2000">
+          <div class="width-labels">
+            <span>Smaller</span>
+            <span>Original Size</span>
+          </div>
+        </div>
+
+        <div class="format-selector">
+          <span>Format:</span>
+          <div class="format-options">
+            <button class="format-option active" data-format="jpeg">JPG</button>
+            <button class="format-option" data-format="png">PNG</button>
+            <button class="format-option" data-format="webp">WEBP</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-download" id="downloadBtn">
+          <i class="fas fa-download"></i>
+          Download Compressed Image
+        </button>
+        <button class="btn-secondary" id="compressAgainBtn">
+          <i class="fas fa-redo"></i>
+          Compress Again
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Made with <i class="fas fa-heart"></i> by Nexus Compressor Team</p>
+      <div class="watermark">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjEwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiPkNvbXByZXNzZWQgd2l0aCBOZXh1cyBDb21wcmVzc29yPC90ZXh0Pjwvc3ZnPg==" alt="Nexus Compressor" class="watermark-image">
+      </div>
+    </footer>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay hidden" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <p>Compressing your image...</p>
+  </div>
+
+  <!-- Notification -->
+  <div class="notification hidden" id="notification">
+    <span id="notificationText"></span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+    </html>
